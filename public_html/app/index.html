@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en-GB"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vent.</title>
+
+    <!-- Color the status bar on mobile devices -->
+    <meta name="theme-color" content="#000">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/header.js"></script>
+
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+
+  <body>
+    <header>
+        <div class="large-header-container">
+            <h1 class="large-header-title">Vent.</h1>
+        </div>
+    </header>
+    <main>
+        <div>
+            <input class="black-button" type="button" id="show-new-post-form" value="I need to Vent.">
+            <form id="new-post-form">
+                <button id="cancel-new-post" type="button">X</button>
+
+                <label class="required" for="new-post-title" >Title</label>
+                <input type="text" id="new-post-title" name="title"/>
+
+                <label for="new-post-author">Name</label>
+                <input type="text" id="new-post-author" name="author"/>
+
+                <label class="required" for="new-post-content">Message</label>
+                <textarea id="new-post-content" name="content"></textarea>
+
+                <label for="new-post-feeling-list">Feeling</label>
+                <ul class="unstyled-list horizontal-list" id="new-post-feeling-list">
+                    <li class="far"><button type="button" value="happy">😊</button></li>
+                    <li class="close"><button type="button" value="excited">😃</button></li>
+                    <li class="selected"><button type="button" value="blank">😶</button></li>
+                    <li class="close"><button type="button" value="angry">😡</button></li>
+                    <li class="far"><button type="button" value="sad">😢</button></li>
+                </ul>
+
+                <!-- Ghost input, value is changed in main.js -->
+                <input id="new-post-feeling" name="feeling" type="hidden" value="blank" />
+
+                <p style="color: #ff6666;text-align: center;font-size: 1.4rem;" id="new-post-form-response"></p>
+                <!-- Form Submit -->
+                <input id="submit-post-button" class="black-button accent-border-bottom-blank" type="submit" value="Send Vent.">
+            </form>
+        </div>
+        <div id="posts">
+          <?php include 'php/get-posts.php';?>
+        </div>
+      </main>
+  </body>
+
+</html>
