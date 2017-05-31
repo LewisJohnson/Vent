@@ -30,7 +30,7 @@ button {
   }
 }
 
-#cancel-new-post{
+#cancel-new-post, #cancel-new-comment{
   @extend %naked-button;
   float: right;
   font-size: 2rem;

@@ -12,18 +12,21 @@ function createVentPostHtml($feeling, $title, $content, $author, $postID, $postC
 
 	echo "
 	<section class='vent-post-container accent-border-bottom-{$feeling}' data-postId='{$postID}' data-postFeeling='{$feeling}'>
-		<div class='vent-text-post'>
+		<div class='vent-comment-post vent-text-post'>
 			<div class='vent-post-content'>
 				<h1 class='vent-post-author'>{$title}</h1>
 				<h1 class='vent-post-id'>#{$postID}</h1>
                 <p style='white-space:pre-wrap;'>{$content}</p>
              </div>";
             if ($comments->num_rows > 0) {
-                echo "<div class='vent-comment-container'>";
-                echo "<h4>Comments</h4>";
+                echo "<div class='vent-comment-container dropdown'>";
+                echo "<h3>Comments</h3>";
+                echo "<h3 class='dropdown-arrow'></h3>";
+                echo "<div class='expando'>";
                 while($row = $comments->fetch_assoc()) {
-                    createVentCommentHtml($row["Feeling"], $row["Author"], $row["Content"], $row["CommentID"]);
+                    createVentCommentHtml($row["Feeling"], $row["Author"], $row["Content"], $row["CreationTime"], $row["CommentID"]);
                 }
+                echo "</div>";
                 echo "</div>";
             }
             echo "
@@ -31,19 +34,10 @@ function createVentPostHtml($feeling, $title, $content, $author, $postID, $postC
                 <li class='author-desktop' style='float: left'>Vented by {$author} around {$postCreationTime}</li>
                 <li class='author-mobile' style='float: left'>{$author} ~ {$postCreationTime}</li>
                 <a href='#' style='float: right'>Report</a>
-                <button class='vent-post-comment-button' style='float: right'>Comment</button>
+                <button class='vent-post-comment-button' style='float: right' data-postId='{$postID}'>Comment</button>
 			</ul>
 		</div>
 	</section>";
-}
-
-function createVentCommentHtml($feeling, $author, $content, $commentID) {
-    //<div class='vent-comment-feeling vent-comment-feeling-{$feeling}'></div>
-    echo "
-	<div class='vent-comment' data-commentId='{$commentID}' data-commentFeeling='{$feeling}'>
-	    <h5 class='vent-comment-feeling-{$feeling}'>{$author}</h5>
-	    <p>{$content}</p>
-	</div>";
 }
 
 function createAnnouncementVentPostHtml($title, $content = "") {
@@ -66,6 +60,16 @@ function createAnnouncementVentPostHtml($title, $content = "") {
 	</section>";
 }
 
+function createVentCommentHtml($feeling, $author, $content, $commentCreationTime, $commentID) {
+    $commentCreationTime = timeElapsedString($commentCreationTime);
+
+    echo "
+	<div class='vent-comment' data-commentId='{$commentID}' data-commentFeeling='{$feeling}'>
+	    <h5 class='vent-comment-feeling-{$feeling}'>{$author}</h5>
+	    <p class='vent-comment-content'>{$content}</p>
+	    <p class='vent-comment-time'>{$commentCreationTime}</p>
+	</div>";
+}
 
 function timeElapsedString($datetime, $full = false) {
     date_default_timezone_set('Europe/London');

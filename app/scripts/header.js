@@ -40,6 +40,7 @@ $( document ).ready(function() {
         var bottom = hamburger.children().eq(2);
 
         if(nav.css("max-width") === "300px"){
+            //Close menus
             $(".dropdown-arrow").each(function() {
                 if($(this).hasClass("active")){
                     $(this).click();
@@ -64,11 +65,6 @@ $( document ).ready(function() {
             middle.css({"left": "8px", "opacity": "0"});
             bottom.css({"top": "-8px", "width": "22px", "transform": "rotate(-45deg)"});
         }
-    });
-
-    $(".dropdown-arrow").on( "click", function() {
-        $(this).nextAll('ul.expando').toggleClass("active");
-        $(this).toggleClass("active");
     });
 
     feelingFilter.on("change", function () {

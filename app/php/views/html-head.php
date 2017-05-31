@@ -14,6 +14,8 @@
 <script src="scripts/cookies.js"></script>
 <script src="scripts/main.js"></script>
 <script src="scripts/header.js"></script>
+<script src="scripts/newpost.js"></script>
+<script src="scripts/comment.js"></script>
 
 <link rel="stylesheet" href="styles/main.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">

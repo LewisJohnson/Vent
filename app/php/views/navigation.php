@@ -4,7 +4,7 @@
             <h3><a href="index.html" >HOME.</a></h3>
         </li>
         <?php include 'php/feelings-toggle-options.php';?>
-        <li class="nav-dropdown">
+        <li class="dropdown nav-dropdown">
             <h3><a href="help.html" >HELP.</a></h3>
             <h3 class="dropdown-arrow"></h3>
             <ul class="expando unstyled-list">

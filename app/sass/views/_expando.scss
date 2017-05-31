@@ -1,0 +1,51 @@
+.expando{
+  clear: both;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0, 1, 1, 1), opacity 1s ease-in;
+  transform: scaleY(0);
+  transform-origin: top;
+  height: 0;
+  opacity: 0;
+
+  &.active{
+    display: block;
+    height: auto;
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  li {
+    border: none;
+    margin-bottom: 5px;
+    h4{
+      display: inline-block;
+      padding-bottom: 15px;
+      margin: 9px 0 0;
+    }
+
+    .switch{
+      float: right;
+      margin-right: 1rem;
+    }
+  }
+}
+
+.dropdown{
+  h3{
+    display: inline-block;
+  }
+
+  .dropdown-arrow{
+    float: right;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+    position: relative;
+    &:before{
+      content: "▼";
+    }
+
+    &.active{
+      transform: rotate(180deg);
+    }
+  }
+}

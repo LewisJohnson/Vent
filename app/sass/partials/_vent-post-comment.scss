@@ -1,15 +1,29 @@
 .vent-comment-container{
-  padding: 1rem;
+  padding: 0 1rem 1rem;
+  border: 2px solid #dadada;
+  border-left: 0;
+  border-right: 0;
+  margin-bottom: 1rem;
+  h3{
+    font-weight: 400;
+  }
 }
 
 .vent-comment{
   h5{
     margin-bottom: 0;
+    margin-top: 5px;
   }
 
-  p{
+  &-content{
     margin-top: 2px;
-    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  &-time{
+    margin-top: 0;
+    font-size: 14px;
+    color: $vent-post-id;
   }
 }
 

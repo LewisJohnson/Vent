@@ -169,7 +169,7 @@ gulp.task('generate-favicon', function(done) {
 		settings: {
 			compression: 5,
 			scalingAlgorithm: 'Mitchell',
-			errorOnImageTooSmall: false
+			errorOnImageTooSmall: true
 		},
 		markupFile: FAVICON_DATA_FILE
 	}, function() {
@@ -211,7 +211,7 @@ gulp.task('default', function(done) {
 //default
 gulp.task('prod', function(done) {
     runSequence('clean-dist', 'copy-to-dist', 'inject-favicon-markups', 'minify-html', 'sass', 'babel', 'copy-to-prod', function() {
-        gulp.start('clean-dist');
+        gulp.start('clean-dist');w
         done();
     });
 });

@@ -24,6 +24,18 @@ input:focus, textarea:focus, select:focus, button:focus{
   -webkit-tap-highlight-color: transparent;
 }
 
+// Nakeds
+%naked-button{
+  border: none;
+  background: none;
+}
+
+%naked-list{
+  padding: 0;
+  margin: 0;
+}
+
+// Helpers
 .unstyled-list{
   list-style: none;
 }

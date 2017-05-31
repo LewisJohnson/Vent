@@ -11,7 +11,7 @@
     <textarea id="new-post-content" name="content"></textarea>
 
     <label for="new-post-feeling-list">Feeling</label>
-    <ul class="unstyled-list horizontal-list" id="new-post-feeling-list">
+    <ul class="unstyled-list horizontal-list feeling-list" id="new-post-feeling-list">
         <li class="far"><button type="button" value="happy">😊</button></li>
         <li class="close"><button type="button" value="excited">😃</button></li>
         <li class="selected"><button type="button" value="blank">😶</button></li>
