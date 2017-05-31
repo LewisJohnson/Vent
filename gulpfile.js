@@ -52,8 +52,7 @@ gulp.task('php', function () {
 /* +==================+
    | PRODUCTION TASKS |
    +==================+
-*/ 
-
+*/
 
 //Clean prod folder
 gulp.task('clean-prod', function () {
