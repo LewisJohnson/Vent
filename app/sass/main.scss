@@ -1,0 +1,20 @@
+@import "base/_nakeds";
+
+@import "base/_colours";
+@import "base/_strings";
+@import "base/_base";
+@import "base/_buttons";
+
+@import "partials/_navigation";
+@import "partials/_footer";
+@import "partials/_vent-form";
+@import "partials/_vent-post";
+@import "partials/_vent-post-comment";
+
+@import "views/_comment-box";
+
+h1.large-header-title::after {
+  content: "beta";
+  font-size: 1rem;
+  color: #a90000;
+}

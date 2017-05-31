@@ -1,0 +1,245 @@
+nav{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 75vw;
+  max-width: 0;
+  height: 100%;
+  background: black;
+  z-index: 75;
+  transition: 0.3s all ease-in-out;
+  padding-top: 5rem;
+  overflow: hidden;
+  color: white;
+  border-right: 1px solid white;
+  li{
+    border-bottom: 1px solid white;
+    a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+      &:hover{
+        color: darken(white, 25%);
+      }
+    }
+  }
+}
+
+.expando{
+  clear: both;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0, 1, 1, 1), opacity 1s ease-in;
+  transform: scale(0);
+  transform-origin: top;
+  height: 0;
+  opacity: 0;
+
+  &.active{
+    display: block;
+    height: auto;
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  li {
+    border: none;
+    margin-bottom: 5px;
+    h4{
+      display: inline-block;
+      padding-bottom: 15px;
+      margin: 9px 0 0;
+    }
+
+    .switch{
+      float: right;
+      margin-right: 1rem;
+    }
+  }
+}
+
+.nav-dropdown{
+  h3{
+    display: inline-block;
+  }
+
+  .dropdown-arrow{
+    float: right;
+    margin-right: 2rem;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+    position: relative;
+    &:before{
+      content: "▼";
+    }
+
+    &.active{
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.hamburger{
+  @extend %naked-list;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  li{
+    position: relative;
+    width: 20px;
+    height: 3px;
+    margin-bottom: 5px;
+    background: black;
+    transition: 0.3s all;
+  }
+
+  :nth-child(2){
+    width: 25px;
+  }
+}
+
+.header-hamburger{
+  position: fixed;
+  width: 40px;
+  height: 35px;
+  margin: 5px;
+  z-index: 110;
+  transition: 0.3s all ease-in-out;
+  &-as-menu{
+    margin: 21px 10px 10px;
+    li{
+      background: white;
+    }
+  }
+}
+
+.large-header-title{
+  position: relative;
+  z-index: 98;
+  text-align: center;
+  font-size: 8rem;
+  transition: 1s all;
+}
+
+.large-header-subtitle{
+  position: relative;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 300;
+  top: -4rem;
+}
+
+.large-header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  transition: 1s all;
+  background: white;
+  &-as-menu{
+    z-index: 100;
+    position: fixed;
+    background: black;
+
+    .large-header-title {
+      text-align: center;
+      font-size: 2rem;
+      color: white;
+      &-branded{
+        &:before {
+          content: "Vent";
+          color: gray;
+          font-size: 1rem;
+          vertical-align: top;
+          position: relative;
+          left: -5px;
+
+          opacity: 0;
+          animation-name: headingBeforeAnimation;
+          animation-duration: 0.8s;
+          animation-delay: 0.5s;
+          animation-fill-mode: forwards;
+
+        }
+      }
+    }
+
+    .large-header-subtitle{
+      animation-name: subheadingAnimation;
+      animation-duration: 0.5s;
+      animation-fill-mode: forwards;
+      overflow: hidden;
+    }
+  }
+}
+
+@keyframes subheadingAnimation {
+  from {margin: inherit; height: 38px;}
+  to {margin: 0; height: 0;}
+}
+
+@keyframes headingBeforeAnimation {
+  from {top: -100px;}
+  to {top: 0px; opacity: 1;}
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

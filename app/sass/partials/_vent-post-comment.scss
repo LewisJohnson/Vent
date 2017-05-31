@@ -1,0 +1,36 @@
+.vent-comment-container{
+  padding: 1rem;
+}
+
+.vent-comment{
+  h5{
+    margin-bottom: 0;
+  }
+
+  p{
+    margin-top: 2px;
+    display: inline-block;
+  }
+}
+
+.vent-comment-feeling{
+  &-happy::after {
+    content: " " + $feeling-happy-string;
+  }
+
+  &-excited::after{
+    content: " " + $feeling-excited-string;
+  }
+
+  &-angry::after {
+    content: " " + $feeling-angry-string;
+  }
+
+  &-sad::after {
+    content: " " + $feeling-sad-string;
+  }
+
+  &-blank::after {
+    content: " " + $feeling-blank-string;
+  }
+}

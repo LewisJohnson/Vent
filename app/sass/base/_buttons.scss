@@ -1,0 +1,37 @@
+%naked-button{
+  border: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+}
+
+.black-button{
+  @extend %naked-button;
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  background: black;
+  color: white;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.3s all;
+  &:hover, &:disabled{
+    background: white;
+    color: black;
+    outline: 1px solid black;
+  }
+
+  &.hidden{
+    opacity: 0;
+    height: 0;
+  }
+}
+
+#cancel-new-post{
+  @extend %naked-button;
+  float: right;
+  font-size: 2rem;
+}

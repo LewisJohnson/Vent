@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+    <title>Vent.</title>
+    <?php include 'php/views/html-head.php';?>
+</head>
+
+<body>
+    <header>
+        <div class="large-header-container">
+            <h1 class="large-header-title">Vent.</h1>
+        </div>
+        <div class="header-hamburger">
+            <ul class="hamburger unstyled-list">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </header>
+    <?php include 'php/views/navigation.php';?>
+    <main>
+        <div>
+            <input class="black-button" type="button" id="show-new-post-form" value="I need to Vent.">
+            <?php include 'php/views/new-post-form-html.php';?>
+        </div>
+        <div id="posts">
+            <section class="vent-post-container accent-border-bottom-blank">
+                <div class="vent-text-post">
+                    <div class="vent-post-content">
+                        <h1>Loading Vents.</h1>
+                    </div>
+                </div>
+            </section>
+        </div>
+      </main>
+    <?php include 'php/views/footer.php';?>
+  </body>
+</html>
