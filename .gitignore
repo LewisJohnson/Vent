@@ -117,3 +117,4 @@ node_modules/
 dist/
 public_html/
 app/styles/main.css
+connect.php

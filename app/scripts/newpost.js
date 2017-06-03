@@ -11,6 +11,14 @@ $( document ).ready(function() {
         $(window).scrollTop( 100 );
     });
 
+    $('#new-post-allow-comments').on("change", function () {
+        if(this.checked){
+            $("#new-post-allow-comments-ghost").val(1);
+        } else {
+            $("#new-post-allow-comments-ghost").val(0);
+        }
+    });
+
     $('#cancel-new-post').on( "click", function() {
         postForm.removeClass('active');
         showNewPostFormButton.removeClass('hidden');

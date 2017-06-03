@@ -16,7 +16,7 @@ if (!isset($_POST['feeling'])) {
     return;
 }
 
-$stmt->bind_param("ssss", $_POST['parentID'], $_POST['content'], $_POST['author'], $_POST['feeling']);
+$stmt->bind_param("ssss", $_POST['parentID'], strip_tags($_POST['content']), strip_tags($_POST['author']), strip_tags($_POST['feeling']));
 
 $stmt->execute();
 

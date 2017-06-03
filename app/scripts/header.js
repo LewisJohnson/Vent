@@ -5,9 +5,12 @@ $( document ).ready(function() {
 
     var feelingList = {};
     updateFeelingPreferences();
-    checkallCookies(JSON.stringify(feelingList));
+    checkallCookies();
 
-    updateFeelingListFromCookie();
+    if(getCookie("VentFilters") !== "") {
+        updateFeelingListFromCookie();
+    }
+
     updateFeelingPreferences();
 
     loadPosts();

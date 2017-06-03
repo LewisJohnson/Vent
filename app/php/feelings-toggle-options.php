@@ -11,7 +11,7 @@
             echo "<li>
                     <h4>{$heading}</h4>
                     <label class='switch'>
-                    <input class='feeling-filter' type='checkbox' value='{$feelings_array[0]}'>
+                    <input class='feeling-filter' type='checkbox' value='{$feelings_array[0]}' checked>
                     <div class='slider round'></div>
                     </label>
                 </li>";

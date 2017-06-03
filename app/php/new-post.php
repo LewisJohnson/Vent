@@ -1,7 +1,7 @@
 <?php
 require 'connect.php';
 
-$sql = "INSERT INTO lj234.vent_post (Title, Content, Author, Feeling, CreationTime) VALUES (?,?,?,?, NOW())";
+$sql = "INSERT INTO lj234.vent_post (Title, Content, Author, Feeling, AllowComments, CreationTime) VALUES (?,?,?,?,?, NOW())";
 
 $stmt = $conn->prepare($sql);
 
@@ -20,7 +20,11 @@ if (!isset($_POST['feeling'])) {
     return;
 }
 
-$stmt->bind_param("ssss", $_POST['title'], $_POST['content'], $_POST['author'], $_POST['feeling']);
+// Don't allow HTML tags
+preg_replace("/[<>]+/", '', $_POST["title"]);
+preg_replace("/[<>]+/", '', $_POST["author"]);
+
+$stmt->bind_param("sssss", $_POST['title'], htmlspecialchars($_POST['content']), $_POST['author'], $_POST['feeling'], $_POST['comments']);
 
 $stmt->execute();
 

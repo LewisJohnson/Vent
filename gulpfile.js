@@ -10,10 +10,12 @@ var clean = require('gulp-clean');
 var realFavicon = require ('gulp-real-favicon');
 var fs = require('fs');
 var runSequence = require('run-sequence');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var replace = require('gulp-string-replace');
 
 // File where the favicon markups are stored
 var FAVICON_DATA_FILE = 'faviconData.json';
-
 
 /* +===================+
    | DEVELOPMENT TASKS |
@@ -65,25 +67,40 @@ gulp.task('copy-to-prod', function () {
     gulp.src('./dist/*.html').pipe(gulp.dest('../public_html'));
     gulp.src('./dist/styles/*.css').pipe(gulp.dest('../public_html/styles'));
     gulp.src('./dist/scripts/*.js').pipe(gulp.dest('../public_html/scripts'));
-    gulp.src('./app/php/**/*.php').pipe(gulp.dest('../public_html/php'));
-    gulp.src('./app/images/*.*').pipe(gulp.dest('../public_html/images'));
+    gulp.src('./dist/php/**/*.php').pipe(gulp.dest('../public_html/php'));
+    return gulp.src('./app/images/*.*').pipe(gulp.dest('../public_html/images'));
 });
 
 //Copies all needed files to dist
 gulp.task('copy-to-dist', function () {
-    return gulp.src('./app/*.html').pipe(gulp.dest('./dist'));
+    gulp.src('./app/*.html').pipe(gulp.dest('./dist'));
+    return gulp.src('./app/php/**/*.php').pipe(gulp.dest('./dist/php'));
 });
 
-
-//Compile and fuck up JS to dist
+//Compile and copy JS dist+
 gulp.task('babel',  function () {
-    return gulp.src('./app/scripts/**/*.js')
+    return gulp.src('./dist/scripts/**/*.js')
         .pipe(babel({
         	presets: ['es2015'],
         	comments: false,
-        	minified: false
+        	minified: true
         }))
         .pipe(gulp.dest('./dist/scripts'));
+});
+
+// Combine and minify scrips
+gulp.task('minify-js', function() {
+    return gulp.src('./app/scripts/**/*.js')
+        .pipe(concat('vent.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/scripts'));
+});
+
+//Compile SASS to dist
+gulp.task('sass', function () {
+    return gulp.src('./app/sass/**/*.scss')
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(gulp.dest('./dist/styles'));
 });
 
 //Minify HTML in dist
@@ -100,13 +117,6 @@ gulp.task('minify-html', function() {
         	useShortDoctype: true
         }))
         .pipe(gulp.dest('./dist'));
-});
-
-//Compile SASS to dist
-gulp.task('sass', function () {
-    return gulp.src('./app/sass/**/*.scss')
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(gulp.dest('./dist/styles'));
 });
 
 // Generate the icons. This task takes a few seconds to complete.
@@ -199,9 +209,28 @@ gulp.task('check-for-favicon-update', function(done) {
 	});
 });
 
+gulp.task('replace-js-source-in-php', function() {
+    return gulp.src("./dist/php/views/html-head.php")
+        .pipe(replace(new RegExp('<!--START PROD', 'g'), '<!--START PROD-->'))
+        .pipe(replace(new RegExp('END PROD-->', 'g'), '<!--END PROD-->'))
+        .pipe(replace(new RegExp('<!--START DEV-->[<>"a-zA-Z.= /]*<!--END DEV-->', 'g'), ''))
+        .pipe(gulp.dest('./dist/php/views'))
+});
+
+gulp.task('minify-php-views', function() {
+    return gulp.src("./dist/php/views/*.php")
+        .pipe(replace(new RegExp('>[\\s]*<', 'g'), '><'))
+        .pipe(gulp.dest('./dist/php/views'))
+});
+
 //default
 gulp.task('default', function(done) {
-	runSequence('clean-dist', 'copy-to-dist', 'generate-favicon', 'inject-favicon-markups', 'minify-html', 'sass', 'babel', 'copy-to-prod', function() {
+	runSequence('clean-dist', 'copy-to-dist',
+		'inject-favicon-markups', 'minify-html',
+		'sass',
+		'minify-js', 'babel',
+		'minify-php-views', 'replace-js-source-in-php',
+		'copy-to-prod', function() {
 		gulp.start('clean-dist');
         done();
     });
@@ -210,8 +239,8 @@ gulp.task('default', function(done) {
 
 //default
 gulp.task('prod', function(done) {
-    runSequence('clean-dist', 'copy-to-dist', 'inject-favicon-markups', 'minify-html', 'sass', 'babel', 'copy-to-prod', function() {
-        gulp.start('clean-dist');w
+    runSequence('clean-dist', 'copy-to-dist', 'generate-favicon', 'inject-favicon-markups', 'minify-html', 'sass', 'minify-js', 'babel', 'copy-to-prod', function() {
+        gulp.start('clean-dist');
         done();
     });
 });

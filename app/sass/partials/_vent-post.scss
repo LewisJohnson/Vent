@@ -8,6 +8,9 @@
 
 .vent-post-content{
   padding: 1rem;
+  img{
+    width: 100%;
+  }
 }
 
 .vent-post-author{
@@ -23,27 +26,29 @@
 .vent-post-footer{
   display: block;
   background: $vent-post-footer;
-  width: calc(100% - 2rem);
+  width: calc(100% - 20px);
   height: 20px;
-  padding: 1rem;
+  padding: 10px;
   margin: 0;
   border-top: 1px solid darken($vent-post-background, 10%);
-  a{
+  button{
+    @extend %naked-button;
+    float: right;
     margin-left: 10px;
     text-decoration: none;
     transition: 0.3s color;
     color: darken($vent-post-footer, 20%);
+    font-size: 14px;
     &:hover{
-      color: darken($vent-post-footer, 50%);
+      color: black;
     }
-  }
-
-  button{
-    @extend %naked-button;
-
   }
 }
 
+.author{
+  float: left;
+  font-size: 14px;
+}
 .author-mobile{display: none;};
 
 @media screen and (max-width: 500px) {

@@ -24,9 +24,12 @@
 
     <label for="new-post-allow-comments" style="display: inline-block; margin-bottom: 25px;padding-top: 7px;">Allow comments</label>
     <label class="switch" style="float: right;">
-        <input id="new-post-allow-comments" class="feeling-filter" type="checkbox" checked>
+        <input id="new-post-allow-comments" type="checkbox" checked>
         <div class="slider round"></div>
     </label>
+
+    <!-- Ghost input, value is changed in main.js -->
+    <input id="new-post-allow-comments-ghost" name="comments" type="hidden" value="1" />
 
     <p style="color: #ff6666;text-align: center;font-size: 1.4rem;" id="new-post-form-response"></p>
     <!-- Form Submit -->
