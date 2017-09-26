@@ -1,7 +1,7 @@
 <?php
 require 'connect.php';
 
-$sql = "SELECT * FROM lj234.vent_post ORDER BY PostID DESC LIMIT 1";
+$sql = "SELECT * FROM vent.vent_post ORDER BY PostID DESC LIMIT 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

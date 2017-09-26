@@ -1,7 +1,7 @@
 <?php
 require 'connect.php';
 
-$sql = "INSERT INTO lj234.vent_comment (ParentID, Content, Author, Feeling, CreationTime) VALUES (?,?,?,?, NOW())";
+$sql = "INSERT INTO vent.vent_comment (ParentID, Content, Author, Feeling, CreationTime) VALUES (?,?,?,?, NOW())";
 
 $stmt = $conn->prepare($sql);
 

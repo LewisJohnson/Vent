@@ -2,23 +2,29 @@ $( document ).ready(function() {
     var hamburger = $(".header-hamburger ul");
     var nav = $("nav");
     var feelingFilter = $(".feeling-filter");
+    var headerIsMenu = false;
 
-    var feelingList = {};
-    updateFeelingPreferences();
+    var feelingFilterAsArray = function () {
+        var f = {};
+        feelingFilter.each(function() {
+            f[$(this).val()] = $(this).is(':checked');
+        });
+        return f;
+    };
+
+
+    updateFeelingFilterFromCookie();
     checkallCookies();
-
-    if(getCookie("VentFilters") !== "") {
-        updateFeelingListFromCookie();
-    }
-
-    updateFeelingPreferences();
-
     loadPosts();
 
     //Change header on scolll
     $(document).scroll(function() {
+        if(headerIsMenu){
+            return;
+        }
         var y = $(this).scrollTop();
         if (y > 50) {
+            headerIsMenu = true;
             $('header').css("height", "9rem");
             $('.header-hamburger').addClass('header-hamburger-as-menu');
             $('.large-header-container').addClass('large-header-container-as-menu');
@@ -26,13 +32,6 @@ $( document ).ready(function() {
             // If there is a subheader, add VENT branding
             if($(".large-header-subtitle").length > 0) {
                 $('.large-header-title').addClass('large-header-title-branded');
-            }
-        } else {
-            if($(".large-header-subtitle").length <= 0) {
-                $('header').css("height", "25rem");
-                $('.large-header-container').removeClass('large-header-container-as-menu');
-                $('.header-hamburger').removeClass('header-hamburger-as-menu');
-                $('.large-header-title').removeClass('large-header-title-branded');
             }
         }
     });
@@ -55,10 +54,8 @@ $( document ).ready(function() {
             middle.css({"left": "0px", "opacity": "1"});
             bottom.css({"top": "0px", "width": "20px", "transform": "rotate(0deg)"});
 
-            if ($(document).scrollTop() < 50){
-                if($(".large-header-subtitle").length < 1){
-                    $('.header-hamburger').removeClass('header-hamburger-as-menu');
-                }
+            if (!headerIsMenu){
+                $('.header-hamburger').removeClass('header-hamburger-as-menu');
             }
 
         } else {
@@ -71,29 +68,34 @@ $( document ).ready(function() {
     });
 
     feelingFilter.on("change", function () {
-        updatePostsFromPreferences();
+        //Update vent filter cookie
+        updateFeelingFilterCookie();
+
+        //Update vent posts
+        updateVentPosts();
     });
 
-    function updatePostsFromPreferences(){
-        updateFeelingPreferences();
-        setCookie("ventFilters", JSON.stringify(feelingList), 365);
-
+    function updateVentPosts(){
+        // Visual only, Hides post which don't fit with the filter
         $('section', $("#posts")).each(function () {
-            if(feelingList[$(this).data("postfeeling")] === false){
+            if(feelingFilterAsArray()[$(this).data("postfeeling")] === false){
                 $(this).hide();
             } else {
-                if($(this).css("display") === "none")
-                    $(this).show();
+                $(this).show();
             }
         });
     }
 
-    function updateFeelingListFromCookie(){
-        if(getCookie("ventFilters") === ""){
-            return;
-        }
-        var pref = $.parseJSON(getCookie("ventFilters"));
+    function updateFeelingFilterCookie(){
+        setCookie("ventFilters", JSON.stringify(feelingFilterAsArray()), 365);
+    }
 
+    function updateFeelingFilterFromCookie(){
+        if(getCookie("ventFilters") === ""){
+            updateFeelingFilterCookie();
+        }
+
+        var pref = $.parseJSON(getCookie("ventFilters"));
         feelingFilter.each(function(index, item) {
             for (var key in pref) {
                 if (pref.hasOwnProperty(key)) {
@@ -105,12 +107,6 @@ $( document ).ready(function() {
         });
     }
 
-    function updateFeelingPreferences(){
-        feelingFilter.each(function() {
-            feelingList[$(this).val()] = this.checked;
-        });
-    }
-
     function loadPosts(){
         var posts = $('#posts');
         $.ajax({
@@ -119,7 +115,7 @@ $( document ).ready(function() {
             success:function(result){
                 posts.empty();
                 posts.prepend(result);
-                updatePostsFromPreferences();
+                updateVentPosts();
             }
         });
     }

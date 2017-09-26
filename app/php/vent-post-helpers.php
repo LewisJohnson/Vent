@@ -8,7 +8,7 @@ function createVentPostHtml($feeling, $title, $content, $author, $postID, $postC
     $comments = null;
 
 	if($allowComments) {
-        $sql = "SELECT * FROM lj234.vent_comment WHERE ParentID = $postID ORDER BY CommentID DESC LIMIT 10";
+        $sql = "SELECT * FROM vent.vent_comment WHERE ParentID = $postID ORDER BY CommentID DESC LIMIT 10";
         if (empty($postID)) {
             return;
         }
@@ -16,11 +16,11 @@ function createVentPostHtml($feeling, $title, $content, $author, $postID, $postC
     }
 
     // Replace #xxx with anchor tags
-    $content = preg_replace($ventPostIdRegex, "<a class='vent-post-anchor-link' title='Vent Post #$2' href='index.html#ventpost$2'>$1$2</a>", $content);
+    $content = preg_replace($ventPostIdRegex, "<a class='vent-post-anchor-link' title='Vent Post #$2' href='#ventpost$2'>$1$2</a>", $content);
 
     echo "
 	<section class='vent-post-container accent-border-bottom-{$feeling}' id='ventpost{$postID}' data-postId='{$postID}' data-postFeeling='{$feeling}'>
-		<div class='vent-comment-post vent-text-post'>
+		<div class='vent-post'>
 			<div class='vent-post-content'>
 				<h1 class='vent-post-author'>{$title}</h1>
 				<h1 class='vent-post-id'>#{$postID}</h1>

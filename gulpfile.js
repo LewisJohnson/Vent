@@ -79,7 +79,7 @@ gulp.task('copy-to-dist', function () {
 
 //Compile and copy JS dist+
 gulp.task('babel',  function () {
-    return gulp.src('./dist/scripts/**/*.js')
+    return gulp.src('./dist/scripts/*.js')
         .pipe(babel({
         	presets: ['es2015'],
         	comments: false,
@@ -90,7 +90,7 @@ gulp.task('babel',  function () {
 
 // Combine and minify scrips
 gulp.task('minify-js', function() {
-    return gulp.src('./app/scripts/**/*.js')
+    return gulp.src('./app/scripts/*.js')
         .pipe(concat('vent.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/scripts'));

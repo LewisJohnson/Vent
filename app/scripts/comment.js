@@ -1,6 +1,11 @@
 $(document).on('click', '.vent-post-comment-button', function (e) {
     $('#comment-form').toggleClass("active");
     $('#new-comment-parent-id').val($(this).data("postid"));
+
+    $('section',$("#posts")).each(function () {
+
+        $(this).hide();
+    });
 });
 
 $( document ).ready(function() {
@@ -14,6 +19,7 @@ $( document ).ready(function() {
 
     //Changes feeling input value
     commentFormFeelingList.find('button').on( "click", function() {
+
         var buttonFeelingListItem = $(this).parent();
 
         $('#new-comment-feeling').val($(this).val());

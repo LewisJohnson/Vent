@@ -2,7 +2,7 @@
 require 'connect.php';
 require 'vent-post-helpers.php';
 
-$sql = "SELECT * FROM lj234.vent_post ORDER BY PostID DESC LIMIT 100";
+$sql = "SELECT * FROM vent.vent_post ORDER BY PostID DESC LIMIT 100";
 $result = $conn->query($sql);
 
 
